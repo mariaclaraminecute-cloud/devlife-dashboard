@@ -1,20 +1,25 @@
-function Header() {
-  return (
-    <header className="top-header">
-      <div className="header-inner">
-        <div>
-          <p className="brand-label">DevLife</p>
-          <h2>Dashboard</h2>
-        </div>
+import {useState} from "react";
+import Relogio from "./relogio";
 
-        <nav className="header-nav" aria-label="Navegação principal">
-          <span>Hoje</span>
-          <span>Semana</span>
-          <span>Projetos</span>
-        </nav>
-      </div>
-    </header>
-  );
+function Header(){ 
+    const [mostrarRelogio, setMostrarRelogio] = useState(false);
+
+    return( 
+        <header className="bg-slate-900 text-white px-8 py-4"> 
+            <h1>Devlife Dashboard</h1>
+
+            <div className="flex items-center gap-3">
+                {}
+                {mostrarRelogio && <Relogio />}
+
+                <button
+                onClick={() => setMostrarRelogio(!mostrarRelogio)}
+           >
+            </button>
+         </div>
+     </header>
+    );
 }
-
 export default Header;
+
+// <Header
