@@ -58,3 +58,31 @@ const copia = respostaDaRede.clone();
 
 );
 });
+
+self.addEventListener("sync", (event) => {
+if (event.tag === "sincronizar-tarefas") {
+event.waitUntil(
+self.clients.matchAll().then((clientes) => {
+clientes.forEach((cliente) => {
+cliente.postMessage({
+tipo: "SINCRONIZADO",
+em: new Date().toISOString(),
+});
+});
+})
+);
+}
+});
+self.addEventListener("push", (event) => {
+const dados = event.data ? event.data.json() : {};
+
+const titulo = dados.titulo || "DevLife";
+
+const opcoes = {
+body: dados.corpo || "Você tem uma nova atualização.",
+icon: "/icons/icon-192.png",
+badge: "/icons/icon-192.png",
+};
+
+event.waitUntil(self.registration.showNotification(titulo, opcoes));
+});
